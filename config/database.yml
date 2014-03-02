@@ -19,7 +19,7 @@ development:
   encoding: unicode
   database: fuzzysql_development
   pool: 5
-  password: elite
+  password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -47,11 +47,11 @@ test:
   encoding: unicode
   database: fuzzysql_test
   pool: 5
-  password: elite
+  password:
 
 production:
   adapter: postgresql
   encoding: unicode
   database: fuzzysql_production
   pool: 5
-  password: elite
+  password:
