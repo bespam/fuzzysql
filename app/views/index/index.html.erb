@@ -1,4 +1,8 @@
 <h2><%= Novel.find(1).title %></h2>
 <p>
-  The time is now: <%= Time.now %>
+<%= form_tag("/search", method: "get") do %>
+<%= label_tag(:q, "Search for:") %>
+<%= text_field_tag(:q) %>
+<%= submit_tag("Search") %>
+<% end %>
 </p>
