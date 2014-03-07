@@ -1,0 +1,10 @@
+#start/stop server
+pg_ctl -D "C:\Program Files\PostgreSQL\9.3\data" start
+pg_ctl -D "C:\Program Files\PostgreSQL\9.3\data" stop
+
+#Create DB dump
+PS C:\Dropbox\ruby\fuzzysql> pg_dump -Fc --no-acl --no-owner -h localhost -U "bespam" --format custom --file "mydb.dump" fuzzysql_development
+
+#Restore dump link to heroku
+
+PS C:\Dropbox\ruby\fuzzysql> heroku pgbackups:restore heroku_postgresql_aqua 'https://dl.dropboxusercontent.com/u/26058581/db.dump'
