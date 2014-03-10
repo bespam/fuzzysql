@@ -13,7 +13,7 @@ class NovelsController < ApplicationController
         @search_string = params[:q]
         keywords = @search_string.strip.gsub(","," ").split(" ")
         keywords.each do |word|
-            concept_url = 'http://conceptnet5.media.mit.edu/data/5.2/assoc/list/en/'+word+'?limit=500&filter=/c/en'
+            concept_url = 'http://conceptnet5.media.mit.edu/data/5.2/assoc/list/en/'+word+'?limit=100&filter=/c/en'
             response = RestClient.get concept_url
             body = JSON.parse response.body
             terms = body["similar"]
