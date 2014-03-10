@@ -1,8 +1,0 @@
-<h2> Database of Sci-Fi novels</h2>
-<p>
-<%= form_tag(controller: "novels", action:"search", method: "post") do %>
-    <%= label_tag(:q, "Search DB for:") %>
-    <%= text_field_tag(:q) %>
-    <%= submit_tag("Search") %>
-<% end %>
-</p>

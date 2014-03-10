@@ -1,14 +1,50 @@
-<h1><%= @keywords%></h1>
-<table style="width:1300px">
-<% @output.each do |novel,score| %>
-    <tr>
-        <td><%= novel.author %></td>
-        <td><%= novel.title %></td>
-        <td><%= novel.description %></td>
-        <td><%= score %></td>        
-    </tr>
-<% end %>
-</table>
-<% if @output.size == 0 %>
-    <em> No results found </em>
+<div class="jumbotron">
+<div class="theme">
+<h2>FuzzySQL</h2>
+Fuzzy query of sci-fi time travel novels and short stories database
+</div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Search terms
+    </div>
+    <div class="panel-body">
+        <%= form_tag(controller: "novels", action: "search", method: "post", class: "form-inline") do %>
+            <%= label_tag(:q, "Search DB for:") %>
+            <%= text_field_tag(:q, @search_string, {class: "form-control", size: 100}) %>
+            <%= submit_tag("Search", class: "btn btn-default") %>
+        <% end %>
+    </div>
+</div>
+<% if @output != nil  %>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Results
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped">       
+                    <thead>
+                        <tr>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <% @output.each do |novel,score| %>
+                        <tr>
+                            <td><%= novel.author %></td>
+                            <td><%= novel.title %></td>
+                            <td><%= novel.description %></td>
+                            <td><%= score.round(3) %></td>        
+                        </tr>
+                    <% end %>
+                </table>
+            </div>
+            <% if @output.size == 0 %>
+                <em> No results found </em>
+            <% end %>
+        </div>
+    </div>
 <% end %>
