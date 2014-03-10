@@ -1,12 +1,12 @@
 Test1::Application.routes.draw do
-  get "novels/search"
-  post "novels/search"
+  get "documents/search"
+  post "documents/search"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'novels#search'
-  resources :novels
+  root 'documents#search'
+  resources :documents
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

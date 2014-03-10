@@ -2,7 +2,7 @@ require 'set'
 require 'rest_client'
 require 'json'
 
-class NovelsController < ApplicationController
+class DocumentsController < ApplicationController
   def search
    #initialize
     ranked = {}
@@ -31,13 +31,13 @@ class NovelsController < ApplicationController
                 regex3 = "'.[^a-z]"+word+"$'"
                 condition3 = query_columns.join(" ~* "+regex3+" or ")+" ~* "+regex3            
                 condition = condition1 + " or " + condition2 + " or " + condition3 
-                results = Novel.find(:all, :conditions => condition)
+                results = Document.find(:all, :conditions => condition)
                 found.merge(results)
-                results.each do |novel|
-                    if ranked.has_key?(novel.id)
-                        ranked[novel.id] += score
+                results.each do |document|
+                    if ranked.has_key?(document.id)
+                        ranked[document.id] += score
                     else
-                        ranked[novel.id] = score
+                        ranked[document.id] = score
                     end
                 end
             end

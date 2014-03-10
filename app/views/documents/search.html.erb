@@ -1,7 +1,7 @@
 <div class="jumbotron">
 <div class="theme">
 <h2>FuzzySQL</h2>
-Fuzzy query of sci-fi time travel novels and short stories database
+Fuzzy query of sci-fi time travel media database
 </div>
 </div>
 <div class="panel panel-primary">
@@ -9,7 +9,7 @@ Fuzzy query of sci-fi time travel novels and short stories database
         Search terms
     </div>
     <div class="panel-body">
-        <%= form_tag(controller: "novels", action: "search", method: "post", class: "form-inline") do %>
+        <%= form_tag(controller: "documents", action: "search", method: "post", class: "form-inline") do %>
             <%= label_tag(:q, "Search DB for:") %>
             <%= text_field_tag(:q, @search_string, {class: "form-control", size: 100}) %>
             <%= submit_tag("Search", class: "btn btn-default") %>
@@ -26,17 +26,19 @@ Fuzzy query of sci-fi time travel novels and short stories database
                 <table class="table table-striped">       
                     <thead>
                         <tr>
+                            <th>Media</th>
                             <th>Author</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Score</th>
                         </tr>
                     </thead>
-                    <% @output.each do |novel,score| %>
+                    <% @output.each do |document,score| %>
                         <tr>
-                            <td><%= novel.author %></td>
-                            <td><%= novel.title %></td>
-                            <td><%= novel.description %></td>
+                            <td><%= document.media %></td>
+                            <td><%= document.author %></td>
+                            <td><%= document.title %></td>
+                            <td><%= document.description %></td>
                             <td><%= score.round(3) %></td>        
                         </tr>
                     <% end %>
