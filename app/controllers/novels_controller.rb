@@ -1,4 +1,7 @@
 require 'set'
+require 'rest_client'
+require 'json'
+
 class NovelsController < ApplicationController
   def search
    #initialize
@@ -8,16 +11,24 @@ class NovelsController < ApplicationController
     
     @keywords = params[:q].strip.split(" ")
     @keywords.each do |word|
-        #check match in query columns
-        query_columns.each do |query|
-            condition = "lower("+query+") like ? or lower("+query+") like ? or lower("+query+") like ? "
-            results = Novel.find(:all, :conditions => [condition,"% "+word.downcase+" %",word.downcase+" %","% "+word.downcase])
-            found.merge(results)
-            results.each do |novel|
-                if ranked.has_key?(novel.id)
-                    ranked[novel.id] += 1
-                else
-                    ranked[novel.id] = 1
+        concept_url = 'http://conceptnet5.media.mit.edu/data/5.2/assoc/list/en/'+word+'?limit=50&filter=/c/en'
+        response = RestClient.get concept_url
+        body = JSON.parse response.body
+        @terms = body["similar"]
+        #do for each similar term found in conceptnet
+        @terms.each do |term, score|
+            #check match in query columns
+            query_columns.each do |query|
+                condition = query+" ~* ?"
+                word = term.strip.split("/")[3].gsub("_"," ")
+                results = Novel.find(:all, :conditions => [condition,".[^a-z]"+word+"[^a-z]."])
+                found.merge(results)
+                results.each do |novel|
+                    if ranked.has_key?(novel.id)
+                        ranked[novel.id] += score
+                    else
+                        ranked[novel.id] = score
+                    end
                 end
             end
         end
