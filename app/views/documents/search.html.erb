@@ -12,7 +12,7 @@ Fuzzy query of sci-fi time travel media database
         <%= form_tag(controller: "documents", action: "search", method: "post", class: "form-inline") do %>
             <%= label_tag(:q, "Search DB for:") %>
             <%= text_field_tag(:q, @search_string, {class: "form-control", size: 100}) %>
-            <%= submit_tag("Search", class: "btn btn-default") %>
+            <%= submit_tag("Search", class: "btn btn-default", onclick: "showbar()") %>
         <% end %>
     </div>
 </div>
